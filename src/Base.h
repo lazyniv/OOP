@@ -11,7 +11,7 @@ class Printable {
 
 class Named : public virtual Printable {
     public:
-        Named(std::string const name): m_name(name) {}
+        Named(std::string const & name): m_name(name) {}
         virtual ~Named() {}
         
         virtual std::string getInfo() const {

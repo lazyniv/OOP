@@ -42,8 +42,6 @@ class Point : public Shape, public virtual Named {
             m_x(other.m_x),
             m_y(other.m_y) {}
 
-        virtual ~Point() {}
-
         double getX() const {
             return m_x;
         }
