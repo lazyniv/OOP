@@ -115,7 +115,7 @@ class Rect : public virtual Shape, public virtual Named {
             return 2 * abs(m_firstPoint.getX() - m_secondPoint.getX()) + 2 * abs(m_firstPoint.getY() - m_secondPoint.getY());
         }
     
-    protected:
+    private:
         Point m_firstPoint;
         Point m_secondPoint;
 };
