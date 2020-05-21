@@ -95,15 +95,10 @@ private:
     }
 
     static Polygon * createPolygon() {
-        int numVerticies = getRandomInt(MAX_VERTICES);
-        Container<Point> points; 
-        Point * p;
-        for(int i = 0; i < numVerticies; i++) {
-            p = createPoint();
-            points.pushBack(*p);
-            delete p;
-        }
-        return new Polygon(points);
+        Polyline * polyline = createPolyline();
+        Polygon * polygon = new Polygon(*polyline);
+        delete polyline;
+        return polygon;
     }
 
     static double getRandomDouble(double lowerBound, double upperBound) {

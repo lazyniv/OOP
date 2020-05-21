@@ -67,8 +67,6 @@ class Circle : public Shape, public Named {
             m_center(center),
             m_radius(radius) {}
 
-        virtual ~Circle() {}
-
         double getArea() const {
             return M_PI * m_radius * m_radius;
         }
@@ -103,8 +101,6 @@ class Rect : public virtual Shape, public virtual Named {
         Rect(Point const & lowerLeft, double const width, double const height):
             Rect(lowerLeft, Point(lowerLeft.getX() + width, lowerLeft.getY() + height)) {}
 
-        virtual ~Rect() {}
-
         std::string getInfo() const {
             return Named::getInfo() + " {\n" 
             + "\tLower left point: " + m_firstPoint.getInfo() + 
@@ -134,8 +130,6 @@ class Square : public Shape, public Named {
             m_lowerLeft(lowerLeft),
             m_width(width) {}
         
-        ~Square() {}
-        
         std::string getInfo() const {
              return Named::getInfo() + " {\n" 
             + "\tLower left point: " + m_lowerLeft.getInfo() + 
@@ -158,9 +152,16 @@ class Square : public Shape, public Named {
 
 class Polyline : public Shape, public Named {
     public:
-        Polyline(Container<Point> & points, std::string const name = "Polyline"): 
+        Polyline(Container<Point> & points, std::string const & name = "Polyline"): 
             Named(name),
             m_points(points) {}
+
+        Polyline(Polyline const & other, std::string const & name = "Polyline"):
+            Named(name),
+            m_points(other.m_points) {}
+
+        Polyline(std::string const & name = "Polyline"):
+            Named(name) {}
 
         virtual ~Polyline() {}
 
@@ -204,7 +205,11 @@ class Polygon : public Polyline {
         Polygon(Container<Point> & points):
             Polyline(points, "Polygon") {}
 
-        virtual ~Polygon() {}
+        Polygon():
+            Polyline("Polygon") {}
+
+        Polygon(Polyline const & polyline):
+            Polyline(polyline, "Polygon") {}
 
         double getLength() const {
             return Polyline::getLength() + lineLength(m_points.getByIndex(0), m_points.getByIndex(m_points.getSize() - 1));
